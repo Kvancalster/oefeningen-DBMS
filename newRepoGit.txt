@@ -1,0 +1,19 @@
+step 1:
+	make directory ($mkdir)
+step 2:
+	Initialize ($git init)
+step 3: 
+	create a file: this file will be placed in the working directory
+		$touch name.txt
+step 4:
+	check status: the file is now untracked
+		$git status
+step 5: 
+	transfers the file form PWD to staging area
+		$git add name.txt
+step 6: 
+	check status
+		$ git status -->Changes to be committed:..
+step 7:
+	Commit the file
+		$ git commit -m "message"
