@@ -16,4 +16,4 @@ step 6:
 		$ git status -->Changes to be committed:..
 step 7:
 	Commit the file
-		$ git commit -m "message"
+		$ git commit -m "message" name.txt
