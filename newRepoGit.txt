@@ -17,3 +17,17 @@ step 6:
 step 7:
 	Commit the file
 		$ git commit -m "message" name.txt
+		or
+		
+step 8: go to github & make new repository (no readme file!)
+
+step 9:
+	link NewDir to new github repository (url via <code> kies ssh)(volg stappen op github)
+		$ git remote add origin https://github.com/Kvancalster/test22-23.git
+	rename master branch to main branch
+		$ git branch -M main
+	check remotes 
+		$ git remote -v
+step 10:
+	push to github
+		$ git push -u origin main
