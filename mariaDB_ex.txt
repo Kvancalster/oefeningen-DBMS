@@ -1,0 +1,15 @@
+Exercise slide 42
+	show model organisms full name (as one column): genus + species
+
+		MariaDB [biodb]> select concat(genus," ",species) FROM modorg;
+
+	Genome size (as Gb, standard: Mb), rounded to 4 digits
+		[ note: standard in Mb (how in original table) show it in Gb
+									1000 Mb = 1 Gb --> gsize/1000 ]
+		MariaDB [biodb]> SELECT concat(genus, " ", species), round(gsize/1000,4) FROM modorg;
+	Average chromosome size per organism
+		MariaDB [MariaDB [biodb]> select concat(genus, " ", species),round(gsize/1000,4), gsize/nchr FROM modorg;
+	Publication year (draft contains a date, need to extract the year with a function)
+		MariaDB [biodb]> select concat(genus, " ", species),round(gsize/1000,4), gsize/nchr,year(draft) FROM modorg;
+	sort by average chromosome size, largest on top
+		MariaDB [biodb]> SELECT concat(genus, " ", species), round(gsize/1000,4), gsize/nchr, year(draft) FROM modorg ORDER BY gsize/nchr desc;
