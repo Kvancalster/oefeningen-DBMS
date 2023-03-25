@@ -27,5 +27,8 @@
 4) show information about table (how many columns/fields, what type of data is present)
 	$ SHOW columns from <table_name>;
 	alternatief: $ SHOW CREATE <table_name>
-	
 
+## CRUD commands
+1) insert - add new rows to a tb (make sure you are using the db, that contains the table)
+	$ INSERT INTO <table_name> (col1,col2,col3) VALUES (int,'string','string'); (note strings always between '', not all columns require a value --> NULL assigned,
+			columns with NOT NULL constraint need to have a value, PK always unique)
