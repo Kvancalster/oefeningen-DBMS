@@ -41,3 +41,14 @@
 	C. concat(s1,s2) function, concatinate multiple columns (vb 2 --> 1 column)
 		$ SELECT concat(class, " ", genus) FROM modorg;
 			(note dont forget quotes seperate by space , " ", )
+		https://mariadb.com/kb/en/string-functions/
+	D. round(NUM,2) num can be a column name or a calculation. number after comma specifies the decimal places.
+		$ round(4.56) --> 5  //// $ round (1.123,1) --> 1.2
+			MariaDB [biodb]> SELECT round(gsize/1000,4) FROM modorg;
+		https://mariadb.com/kb/en/numeric-functions/
+	E. year(date)
+		$ YEAR('1987-01-01') --> 1987
+			ELECT year(draft) FROM modorg;
+		https://mariadb.com/kb/en/date-time-functions/
+
+
