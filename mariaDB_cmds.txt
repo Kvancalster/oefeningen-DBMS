@@ -93,6 +93,12 @@
 			result: col is NOT NULL --> col
 			result: col is NULL --> new_value
 				MariaDB [biodb]> SELECT genus,species, ifnull(nchr,0) FROM modorg;
+	I. DISTINCT - selecting the unique rows (Filtering rows)
+		$ SELECT DISTINCT(class) works with and without brackets..
+			MariaDB [biodb]> SELECT DISTINCT(class) FROM modorg;
+			MariaDB [biodb]> SELECT DISTINCT class FROM modorg;
+	F. LIMIT n [OFFSET n]: limiting output (way of filtering) OFFSET: skip n rows
+		MariaDB [biodb]> SELECT * FROM modorg LIMIT 5 OFFSET 5;
 
 
 
