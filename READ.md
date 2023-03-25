@@ -11,5 +11,6 @@ newRepoGit.txt
 
 
 
-## EXTRA
-# check if renaming folder messes up git & github
+# EXTRA
+## check if renaming folder messes up git & github
+- no effect: OK to do
