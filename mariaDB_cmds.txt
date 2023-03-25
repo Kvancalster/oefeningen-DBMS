@@ -55,4 +55,43 @@
 			MariaDB [biodb]> SELECT gsize/nchr as AvgChrSize from modorg;
 		note if you want spaces in name you have to use " ", WARNING cant be used in sorting in this case (ORDER BY)
 			MariaDB [biodb]> SELECT gsize/nchr as "Avg Chr Size" from modorg;
+	G. WHERE - filer rows
+		$ SELECT col from tbl WHERE condition(s) [ORDER BY col]
+			- combine combinations AND, OR, NOT,XOR (BOOLEAN logic)
+				NOT X --> TRUE if x=FALSE
+					MariaDB [biodb]> SELECT * FROM modorg where class!="mammals";
+				x AND Y --> both x and y need to be true
+				x OR Y --> true if x and/or y =true
+					MariaDB [biodb]> SELECT * FROM modorg where class="mammals" OR class="insects";
+				x XOR Y --> true if x OR y = true, NOT both!
+			- only rows where condition=TRUE are selected
+			- can't use ALIASES!!!
+			- numerical operators
+				=
+				!= or <> (not equal)
+				<, <=,>,=>
+				BETWEEN x AND Y (result includes x and y, works on dates)
+					MariaDB [biodb]> SELECT genus,species FROM modorg WHERE nchr > 10;
+					MariaDB [biodb]> SELECT genus,species FROM modorg WHERE nchr BETWEEN 6 AND 20;
+			- string comparison operators
+				=
+				!= or <> (not equal)
+				<, <=,>,=> (lexical)
+					MariaDB [biodb]> SELECT * FROM modorg WHERE class="mammals";
+				like "pattern": _(matches single character), %(zero or more characters)
+					MariaDB [biodb]> select * FROM modorg WHERE species LIKE  "m%";
+				rlike "regex": matches regular expression pattern (MySQL specific)
+					OUT OF SCOPE
+			- Testing for null values
+				SELECT ... WHERE col is NULL;
+				SELECT ... WHERE col is NOT NULL;
+					MariaDB [biodb]> SELECT * FROM modorg WHERE draft IS NULL;
+	H. substitute NULL values
+		$ SELECT ifnull(col,new_value);
+			result: col is NOT NULL --> col
+			result: col is NULL --> new_value
+				MariaDB [biodb]> SELECT genus,species, ifnull(nchr,0) FROM modorg;
+
+
+
 
