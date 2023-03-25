@@ -16,3 +16,16 @@
 		$ mariadb dbName < file.txt
 			eg. $ mariadb biodb < Downloads/1.sql
 
+## BASIC COMMANDS (hierarchy)
+
+1) show dbs available inside the mariaDB service (one service can contain multiple databases)
+	$ show databases;
+2) start using a database
+	$ USE <name>;
+3) 1 database can contain multiple tables
+	$ SHOW tables;
+4) show information about table (how many columns/fields, what type of data is present)
+	$ SHOW columns from <table_name>;
+	alternatief: $ SHOW CREATE <table_name>
+	
+
