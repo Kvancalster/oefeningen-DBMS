@@ -99,6 +99,7 @@
 			MariaDB [biodb]> SELECT DISTINCT class FROM modorg;
 	F. LIMIT n [OFFSET n]: limiting output (way of filtering) OFFSET: skip n rows
 		MariaDB [biodb]> SELECT * FROM modorg LIMIT 5 OFFSET 5;
+		note: short hand LIMIT 1,2 (offset,limit) let op! eerste getal is de ofset tweede getal de limit.
 
 
 
