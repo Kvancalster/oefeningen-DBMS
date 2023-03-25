@@ -1,0 +1,18 @@
+## CREATING DATABASE & ADDING TABLES to db
+
+1) Create a db (only sudo can create a db)
+	A. Logged into MariaDB
+		$ sudo mariadb (login from linux)
+		$ CREATE DATABASE <name>; (dont forget semicolon)
+	B. from linux CLI
+		$ sudo mysqladmin create <name>
+
+2) grant access to user (once created, a db is only visible for sudo. To start using it you have to grant acess)
+	INSIDE mariadb:
+		$ GRANT ALL ON <name>.* TO kevin@localhost; (note a db can consist out of multiple tables, to grant access to all the tables add wildcard ".*")
+
+3) import a table into a db (first create the actual database, see steps 1 & 2)
+	LINUX (specify the location or move to folder where file is located)
+		$ mariadb dbName < file.txt
+			eg. $ mariadb biodb < Downloads/1.sql
+
