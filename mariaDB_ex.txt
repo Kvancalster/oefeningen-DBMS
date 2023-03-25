@@ -34,6 +34,16 @@ Exercise slide 53
 	Show the organism names of the top 3 smallest genome sizes, not showing NULL values
 		MariaDB [biodb]> SELECT concat(genus, " ", species)as orgName,gsize FROM modorg WHERE gsize IS NOT NULL ORDER BY gsize LIMIT 3;
 
+Exercise slide 58
+	How many organisms are present in the dataset for each class?
+		MariaDB [biodb]> SELECT class,count(*) FROM modorg GROUP BY class; count(*) will count each of the buckets/groups how many rows are in there
+		MariaDB [biodb]> SELECT class,count(class) FROM modorg GROUP BY class; (same result, mssh niet beste idee)
+	Show the minimum and maximum genome sizes for each classTake only the organisms into account for which the sizes are known. Sort the results such that the biggest maximum genome size is on top
+		MariaDB [biodb]> SELECT class,min(gsize),max(gsize) FROM modorg WHERE gsize IS NOT NULL GROUP BY class ORDER BY max(gsize) desc;
+		MariaDB [biodb]> SELECT class,min(gsize) as min_gsize,max(gsize) as max_gsize FROM modorg WHERE gsize IS NOT NULL GROUP BY class ORDER BY max_gsize desc;
+		note: you can use aliasses in ORDER BY, NOT in WHERE
+
+
 
 
 

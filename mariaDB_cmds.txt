@@ -100,7 +100,20 @@
 	F. LIMIT n [OFFSET n]: limiting output (way of filtering) OFFSET: skip n rows
 		MariaDB [biodb]> SELECT * FROM modorg LIMIT 5 OFFSET 5;
 		note: short hand LIMIT 1,2 (offset,limit) let op! eerste getal is de ofset tweede getal de limit.
-
-
+2.2) AGGREGATION
+	In database management an aggregate function is a function where the values of multiple rows are grouped together as input on certain criteria to form a single value of more significant meaning. i.e. doing a function/calculation on MULTIPLE rows. 
+	2.2.1) AGGREGATION FUNCTIONS https://mariadb.com/kb/en/aggregate-functions/
+	A. count()
+		$ SELECT count(*) FROM modorg;
+			--> how many rows are there in our database
+		$ select count(col) FROM modorg;
+			-->will exclude NULL values
+		$ select count(DISTINCT col) FROM modorg;
+			-->how many unique rows are there in a column
+	2.2.2) GROUP BY - aggregation (sort data into groups for aggregation purposes)
+		SELECT [col,] aggregatefunctions FROM dbName [WHERE conditions] GROUP BY col [ORDER BY]
+			all rows with same value in col are grouped
+			for EACH group the aggregate function(s) is/are calculated
+			ONLY SELECT the column on which you grouped! If you group something by a column, it does not make sense to show any other columns. It will most of the time pick the first result that it gets. 
 
 
