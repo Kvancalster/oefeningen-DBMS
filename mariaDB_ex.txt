@@ -26,4 +26,15 @@ Exercise slide 50
 		MariaDB [biodb]> SELECT * FROM modorg WHERE genus LIKE "a%" OR genus LIKE "b%" OR genus LIKE "C%" OR genus LIKE "d%" OR genus LIKE "e%";
 		MariaDB [biodb]> SELECT * FROM modorg WHERE genus rlike "^[A-E]+";
 
+Exercise slide 53
+	Give an overview of all (unique) organism CLASSES in the dataset (sorted alphabetically)
+		MariaDB [biodb]> SELECT DISTINCT class FROM modorg ORDER by class;
+	Show the organism names of the top 3 largest genome sizes
+		MariaDB [biodb]> SELECT concat(genus, " ", species)as orgName,gsize FROM modorg ORDER BY gsize desc LIMIT 3;
+	Show the organism names of the top 3 smallest genome sizes, not showing NULL values
+		MariaDB [biodb]> SELECT concat(genus, " ", species)as orgName,gsize FROM modorg WHERE gsize IS NOT NULL ORDER BY gsize LIMIT 3;
+
+
+
+
 
