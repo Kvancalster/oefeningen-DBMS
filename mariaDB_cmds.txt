@@ -82,6 +82,8 @@
 					MariaDB [biodb]> select * FROM modorg WHERE species LIKE  "m%";
 				rlike "regex": matches regular expression pattern (MySQL specific)
 					OUT OF SCOPE
+					example SELECT * FROM modorg WHERE class rlike "^[A-E]+" ^ has to start with, [A-E] any of the characters in between including
+						A & E, + one ore more characters.
 			- Testing for null values
 				SELECT ... WHERE col is NULL;
 				SELECT ... WHERE col is NOT NULL;
