@@ -38,4 +38,6 @@
 	B. ORDER BY (sort the selected columns)
 		$ SELECT * FROM modorg ORDER BY col1 asc/desc, col2 asc/desc/
 			(note: asc default no need to specify)
-	
+	C. concat(s1,s2) function, concatinate multiple columns (vb 2 --> 1 column)
+		$ SELECT concat(class, " ", genus) FROM modorg;
+			(note dont forget quotes seperate by space , " ", )
