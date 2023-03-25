@@ -32,3 +32,10 @@
 1) insert - add new rows to a tb (make sure you are using the db, that contains the table)
 	$ INSERT INTO <table_name> (col1,col2,col3) VALUES (int,'string','string'); (note strings always between '', not all columns require a value --> NULL assigned,
 			columns with NOT NULL constraint need to have a value, PK always unique)
+2) SELECT - retrieve rows (read)
+	A. select certain columns /// select ALL columns
+		$ SELECT col1,col2,col3 FROM modorg; /// $ SELECT * FROM modorg;
+	B. ORDER BY (sort the selected columns)
+		$ SELECT * FROM modorg ORDER BY col1 asc/desc, col2 asc/desc/
+			(note: asc default no need to specify)
+	
