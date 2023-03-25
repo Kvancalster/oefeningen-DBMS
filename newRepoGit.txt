@@ -18,7 +18,7 @@ step 7:
 	Commit the file
 		$ git commit -m "message" name.txt
 		or
-		
+		$ git -am "message" (in this case adding file name does not seem to work)
 step 8: go to github & make new repository (no readme file!)
 
 step 9:
