@@ -13,3 +13,6 @@ Exercise slide 42
 		MariaDB [biodb]> select concat(genus, " ", species),round(gsize/1000,4), gsize/nchr,year(draft) FROM modorg;
 	sort by average chromosome size, largest on top
 		MariaDB [biodb]> SELECT concat(genus, " ", species), round(gsize/1000,4), gsize/nchr, year(draft) FROM modorg ORDER BY gsize/nchr desc;
+	COMPLETE + USE OF ALIAS
+		MariaDB [biodb]> SELECT concat(genus, " ", species) as species, round(gsize/1000,4) as gsizeGb, gsize/nchr as avgChrSize, year(draft) FROM modorg ORDER BY avgChrSize desc;
+
