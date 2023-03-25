@@ -50,5 +50,9 @@
 		$ YEAR('1987-01-01') --> 1987
 			ELECT year(draft) FROM modorg;
 		https://mariadb.com/kb/en/date-time-functions/
-
+	F. column aliasses (rename columns)
+		$ select col A alias FROM ....;
+			MariaDB [biodb]> SELECT gsize/nchr as AvgChrSize from modorg;
+		note if you want spaces in name you have to use " ", WARNING cant be used in sorting in this case (ORDER BY)
+			MariaDB [biodb]> SELECT gsize/nchr as "Avg Chr Size" from modorg;
 
