@@ -16,3 +16,14 @@ Exercise slide 42
 	COMPLETE + USE OF ALIAS
 		MariaDB [biodb]> SELECT concat(genus, " ", species) as species, round(gsize/1000,4) as gsizeGb, gsize/nchr as avgChrSize, year(draft) FROM modorg ORDER BY avgChrSize desc;
 
+Exercise slide 50
+	Select all mammals with genomes published after 2005
+		MariaDB [biodb]> SELECT * FROM modorg WHERE class="mammals" AND year(draft) > 2005;
+	Select all organisms that have an average chromosome size between 10 and 100 Mbp
+		MariaDB [biodb]> SELECT genus,species,gsize/nchr as avgChrSize FROM modorg WHERE gsize/nchr BETWEEN 10 AND 100;
+	Select all organisms whose genus starts with A, B, C, D or E
+		MariaDB [biodb]> SELECT * FROM modorg WHERE genus <"F" AND genus >= "A";
+		MariaDB [biodb]> SELECT * FROM modorg WHERE genus LIKE "a%" OR genus LIKE "b%" OR genus LIKE "C%" OR genus LIKE "d%" OR genus LIKE "e%";
+		MariaDB [biodb]> SELECT * FROM modorg WHERE genus rlike "^[A-E]+";
+
+
