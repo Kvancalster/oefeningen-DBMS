@@ -115,6 +115,7 @@
 			all rows with same value in col are grouped
 			for EACH group the aggregate function(s) is/are calculated
 			ONLY SELECT the column on which you grouped! If you group something by a column, it does not make sense to show any other columns. It will most of the time pick the first result that it gets. 
+			note: group on MULTIPLE columns: GROUP BY col1,col2 --> first group on col1 next on col2
 	2.2.3) HAVING clause - filter results based on results of AGGREGATE FUNCTIONS
 		SELECT [col,] aggregatefunctions FROM dbName [WHERE conditions] GROUP BY HAVING cond2 [ORDER BY..]
 			note: column alliases CAN BE USED in cond2
