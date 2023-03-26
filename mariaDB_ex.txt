@@ -50,6 +50,13 @@ Exercise slide 60
 	=> Show only the results where the minimum genome size >= 100 and maximum genome size < 1000
 		MariaDB [biodb]> SELECT class,min(gsize) as minGsize,max(gsize) as maxGsize FROM modorg WHERE gsize IS NOT NULL GROUP BY class HAVING minGsize >=100 AND maxGsize < 1000 ORDER BY maxGsize desc;
 
+Exercise slide 63
+	For each class with more than 1 organism, show the average number of chromosomes
+	Sort the result such that the biggest average is on top
+		MariaDB [biodb]> SELECT class,count(*) as nr_org, avg(nchr) as avgNrChr FROM modorg GROUP BY class HAVING nr_org > 1 ORDER BY avgNrChr desc;
+	note you dont have to show the count!
+		MariaDB [biodb]> SELECT class, avg(nchr) as avgNrChr FROM modorg GROUP BY class HAVING count(*) > 1 ORDER BY avgNrChr desc;
+
 
 
 
