@@ -90,6 +90,20 @@ exercise slide 66
 	8B) determine the nr of exons,For each combination where phase and end_phase are different
 		MariaDB [bioinf_testdb]> SELECT phase, end_phase, count(*)  FROM exon WHERE phase!=end_phase GROUP BY phase,end_phase LIMIT 10;
 
+exercise slide 79 (bioinf_testdb)
+	1) Return a list of the 3 biotypes with the most genes. Which biotype is a close fourth?
+	note: he wants two solutions
+		A. MariaDB [bioinf_testdb]> SELECT biotype,count(*) as nr_genes FROM gene GROUP BY biotype ORDER BY nr_genes desc LIMIT 3;
+		B. MariaDB [bioinf_testdb]> SELECT biotype,count(*) as nr_genes FROM gene GROUP BY biotype ORDER BY nr_genes desc LIMIT 1 OFFSET 3;
+			in short: MariaDB [bioinf_testdb]> SELECT biotype,count(*) as nr_genes FROM gene GROUP BY biotype ORDER BY nr_genes desc LIMIT 3,1;
+	2) Return a list of the number of genes per status
+		MariaDB [bioinf_testdb]> SELECT status, count(*) as nr_genes FROM gene GROUP BY status;
+	3) Combining the 2 previous results, which biotype is most known?
+		MariaDB [bioinf_testdb]> SELECT biotype,status, count(*) as nr_genes FROM gene WHERE status="KNOWN" GROUP BY biotype ORDER BY nr_genes desc LIMIT 1;
+	alternative: filter with HAVING clause after grouping on biotype and status
+		MariaDB [bioinf_testdb]> SELECT biotype,status,count(*) as nr_genes FROM gene GROUP BY biotype,status HAVING status="known" ORDER BY nr_genes desc LIMIT 1;
+
+
 
 
 
