@@ -43,6 +43,13 @@ Exercise slide 58
 		MariaDB [biodb]> SELECT class,min(gsize) as min_gsize,max(gsize) as max_gsize FROM modorg WHERE gsize IS NOT NULL GROUP BY class ORDER BY max_gsize desc;
 		note: you can use aliasses in ORDER BY, NOT in WHERE
 
+Exercise slide 60
+	Show the minimum and maximum genome sizes for each class.
+	Take only the organisms into account for which the sizes are known.
+	Sort the results such that the biggest maximum genome size is on top
+	=> Show only the results where the minimum genome size >= 100 and maximum genome size < 1000
+		MariaDB [biodb]> SELECT class,min(gsize) as minGsize,max(gsize) as maxGsize FROM modorg WHERE gsize IS NOT NULL GROUP BY class HAVING minGsize >=100 AND maxGsize < 1000 ORDER BY maxGsize desc;
+
 
 
 
