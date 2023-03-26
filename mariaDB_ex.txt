@@ -103,6 +103,14 @@ exercise slide 79 (bioinf_testdb)
 	alternative: filter with HAVING clause after grouping on biotype and status
 		MariaDB [bioinf_testdb]> SELECT biotype,status,count(*) as nr_genes FROM gene GROUP BY biotype,status HAVING status="known" ORDER BY nr_genes desc LIMIT 1;
 
+excerside slide 95 (biobd2)
+	For all rows in table “gene”, show:
+		Organism name (genus + species)
+		Class name
+		Accession number of the gene
+		Length of the gene
+		Description of the gene
+			MariaDB [biodb2]> SELECT concat(genus, " ",species) as orgName,class.name, acc,len,descr FROM gene JOIN modorg ON gene.mo_id=modorg.id JOIN class ON modorg.class_id=class.id;
 
 
 
