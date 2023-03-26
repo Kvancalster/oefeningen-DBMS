@@ -112,6 +112,24 @@ excerside slide 95 (biobd2)
 		Description of the gene
 			MariaDB [biodb2]> SELECT concat(genus, " ",species) as orgName,class.name, acc,len,descr FROM gene JOIN modorg ON gene.mo_id=modorg.id JOIN class ON modorg.class_id=class.id;
 
-
+excerse slide 104 (bioinf_testdb)
+	1) How many transcripts does the MALAT1 gene have?
+		
+		MariaDB [bioinf_testdb]> SELECT gene_name,count(*) FROM transcript JOIN gene ON transcript.gene_id=gene.gene_id WHERE gene.gene_name="MALAT1";
+	note: you dont have to group to count!
+		MariaDB [bioinf_testdb]> select transcript.gene_id,gene.gene_name, count(*) as nrTranscripts FROM transcript JOIN gene ON transcript.gene_id=gene.gene_id WHERE gene.gene_name="MALAT1"  GROUP BY transcript.gene_id;
+	2) Return the position (chrom, start, end) of the exons of transcript 237999
+		MariaDB [bioinf_testdb]> SELECT transcript.transcript_id, exon_transcript.exon_id,chromosome, exon.seq_region_start,exon.seq_region_end FROM exon JOIN exon_transcript ON
+exon.exon_id=exon_transcript.exon_id JOIN transcript ON exon_transcript.transcript_id = transcript.transcript_id JOIN gene ON transcript.gene_id=gene.gene_id WHERE transcript.transcript_id=237999;
+	3.A) Return the transcripts of the TP53 gene
+		MariaDB [bioinf_testdb]> SELECT gene.gene_name,transcript.transcript_id FROM transcript JOIN gene ON transcript.gene_id=gene.gene_id WHERE gene.gene_name="TP53";
+			note: volgorde maakt niet uit...
+	3.B) Expand the previous exercise to show the exons as well
+		MariaDB [bioinf_testdb]> SELECT gene.gene_name,transcript.transcript_id, exon_transcript.exon_id FROM transcript JOIN gene ON transcript.gene_id=gene.gene_id JOIN exon_transcript ON transcript.transcript_id = exon_transcript.transcript_id WHERE gene.gene_name="TP53";
+	3.c)Find the longest spliced transcript of TP53 (taking in account the intron-exon structure = sum of length of exons)
+		MariaDB [bioinf_testdb]> SELECT gene.gene_name,transcript.transcript_id, count(*) as nrExons, sum(exon.seq_region_end - exon.seq_region_start +1) as lengthSpliced FROM transcript JOIN gene ON transcript.gene_id=gene.gene_id JOIN exon_transcript ON transcript.transcript_id = exon_transcript.transcript_id JOIN exon ON exon_transcript.exon_id=exon.exon_id WHERE gene.gene_name="TP53" GROUP BY transcript_id ORDER BY lengthSpliced desc LIMIT 1;
+		NOTE: GROUP BY is an aggregation, you can count(*) How many buckets you grouped together. --> transcript has 12 exons.
+	3.d)How many exons does each transcript have? 
+		MariaDB [bioinf_testdb]>  SELECT gene.gene_name,transcript.transcript_id, count(*) as nrExons FROM transcript JOIN gene ON transcript.gene_id=gene.gene_id JOIN exon_transcript ON transcript.transcript_id = exon_transcript.transcript_id WHERE gene.gene_name="TP53" GROUP BY transcript.transcript_Id;
 
 
