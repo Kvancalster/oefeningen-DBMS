@@ -57,7 +57,38 @@ Exercise slide 63
 	note you dont have to show the count!
 		MariaDB [biodb]> SELECT class, avg(nchr) as avgNrChr FROM modorg GROUP BY class HAVING count(*) > 1 ORDER BY avgNrChr desc;
 
+exercise slide 65 (Bioinf_testdb)
+	1) Find the gene named HOTAIR in the gene table
+	In addition to the name and chromosomal position, return the size of the gene
+		MariaDB [bioinf_testdb]> SELECT gene_name, seq_region_start, seq_region_end,(seq_region_end - seq_region_start +1) as geneSize  FROM gene WHERE gene_name="HOTAIR";
+	2)Find the known lincRNA that is located the most distal on the p-arm of chromosome 14 (see figure for a hint)
+		MariaDB [bioinf_testdb]> SELECT biotype,status,chromosome, seq_region_start, seq_region_end  FROM gene WHERE biotype="lincRNA" AND status="known" AND
+ chromosome=14;
+	3) Find genes related to prostate cancer (use description field)
+		MariaDB [bioinf_testdb]> select gene_name, description  from gene where description like "%prostate%cancer%" limit 10;
+	% in between prostate and cancer otherwise it will only look for "prostate cancer", it will ommit the result "prostate and breast cancer"
+	4) Return a list of genes located on chromosome X in alphabetical order
+		MariaDB [bioinf_testdb]> SELECT * FROM gene WHERE chromosome="X" ORDER BY gene_name LIMIT 10;
 
+exercise slide 66
+	1) How many occurences does each biotype have in the gene table?
+		MariaDB [bioinf_testdb]> SELECT biotype, count(*) FROM gene GROUP BY biotype;
+	2) A mutation was found on chromosome 20, position 44002590. Which gene(s) have an overlap with this position?
+		MariaDB [bioinf_testdb]> SELECT * FROM gene WHERE chromosome=20 AND 44002590 BETWEEN seq_region_start AND seq_region_end  LIMIT 10;
+	3) Which chromosome has the second most genes?
+		MariaDB [bioinf_testdb]> SELECT chromosome,count(*) as nrGenes FROM gene GROUP BY chromosome ORDER BY nrGenes desc LIMIT 1 OFFSET 1;
+	4) On which chromosome strand lie the most genes?
+		MariaDB [bioinf_testdb]> SELECT seq_region_strand, count(*) as nrGenes FROM gene GROUP BY seq_region_strand ORDER BY nrGenes desc LIMIT 1;
+	5)For every chromosome, determine the # genes on EACH strand
+		MariaDB [bioinf_testdb]> SELECT chromosome, seq_region_strand,count(seq_region_strand) FROM gene GROUP BY chromosome,seq_region_strand ORDER BY chromosome LIMIT 10;
+	6) What is the most common biotype for novel transcripts?
+		MariaDB [bioinf_testdb]> SELECT biotype,status,count(*) FROM transcript WHERE status="novel" GROUP BY biotype ORDER BY count(*) desc LIMIT 1;
+	7) For each biotype with more than 10 known transcripts, give the lowest start position and the highest end position.
+		MariaDB [bioinf_testdb]> SELECT biotype,count(*), min(seq_region_start ), max(seq_region_end ) FROM transcript WHERE status="known" GROUP BY biotype HAVING count(*) > 10 ORDER BY count(*) LIMIT 10;
+	8) How many exons have a different end_phase than their current phase?
+		MariaDB [bioinf_testdb]> SELECT count(*) FROM exon WHERE phase!=end_phase;
+	8B) determine the nr of exons,For each combination where phase and end_phase are different
+		MariaDB [bioinf_testdb]> SELECT phase, end_phase, count(*)  FROM exon WHERE phase!=end_phase GROUP BY phase,end_phase LIMIT 10;
 
 
 
