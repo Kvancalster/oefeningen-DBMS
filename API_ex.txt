@@ -1,0 +1,48 @@
+Exercises (slide 62)
+	1) Return the archived sequence with Ensembl id ENSG00000141510
+		Archive: information about what is this sequence, which version,...
+		[guest@fedora ExerDBMS]$ curl 'http://rest.ensembl.org/archive/id/ENSG00000141510?' -H 'Content-type:application/json'
+	2) Return the archived sequence for both ENSG00000012048 and ENSG00000136997
+		[guest@fedora ~]$ curl 'http://rest.ensembl.org/archive/id' -H 'Content-type:application/json' -H 'Accept:application/json' -X POST -d '{ "id" : ["ENSG00000012048", "ENSG00000136997"] }'
+	3) Return a condensed XML-list of all orthologues in Mus musculus for ENSG00000159763
+		HINTS: 
+			Specify the type: type=orthologues 
+			you have to add a target taxon target_taxon=<taxon_id> (you can also do it differently with a target species, maakt niet uit)
+			specify that you want a CONDENSED XML: format-condensed
+		start point: 
+		curl 'http://rest.ensembl.org/homology/id/ENSG00000157764?type=orthologues;format=condensed' -H 'Content-type:text/xml'
+		curl 'http://rest.ensembl.org/homology/id/ENSG00000159763?type=orthologues;format=condensed' -H 'Content-type:text/xml'
+			if you would run this: lots of information, also for other species.
+			you have to add ;target_species="mus_musculus" (before single quote ' -H)
+		curl 'http://rest.ensembl.org/homology/id/ENSG00000159763?type=orthologues;format=condensed;target_species=mus_musculus' -H 'Content-type:text/xml'
+			To use the taxon identifier (look it up, or you can use the ensmbl API --> GET taxonomy/name/:name) 
+					curl 'http://rest.ensembl.org/taxonomy/name/mouse?' -H 'Content-type:application/json' (you can change mouse --> mus_musculus
+						The parent node is the taxon_id [{"id":"10090","children":
+		curl 'http://rest.ensembl.org/homology/id/ENSG00000159763?type=orthologues;format=condensed;target_taxon=10090' -H 'Content-type:text/xml'
+	4) same as 3) but for BRCA2
+		GET homology/symbol/:species/:symbol --> use a symbol and species in between as well. 
+		We want ortologues in mus_musculus for BRCA2 FROM humans (ORTOLOGUES: corresponding genes in another species), so at first
+		you are looking in humans & then search in target taxon for ortologues
+			curl 'http://rest.ensembl.org/homology/symbol/human/BRCA2?type=orthologues;format=condensed;target_taxon=10090' -H 'Content-type:text/xml'
+	5) Retrieve the genomic FASTA sequence for ENST00000288602.10
+		
+	6) Get a sequence from 100 nucleotides located on human chromosome 2 starting at position 100000 (doesnt specify the type, plain text okay)
+		http://rest.ensembl.org/documentation/info/sequence_region (after the colon you can provide positive or negative strand)
+		GET sequence/region/:species/:region
+		curl 'http://rest.ensembl.org/sequence/region/human/2:100000..100100:1?' -H 'Content-type:text/plain'
+			| wc -m (-m for # chars), also add -s for silent behind curl --> 101, it includes the positions
+		curl 'http://rest.ensembl.org/sequence/region/human/2:100000..100099:1?' -H 'Content-type:text/plain'
+
+
+Exercise slide 63
+	1) Show the taxonomy information of the mouse (bedoelt blijkbaar wat er allemaal in dat taxon zit)
+		curl 'http://rest.ensembl.org/taxonomy/name/mouse?' -H 'Content-type:application/json'
+	2) Find the species and the database for ENSMUSG00000059552
+		GET lookup/id/:id (didnt specify a type, so just basic one)
+			curl 'http://rest.ensembl.org/lookup/id/ENSMUSG00000059552?' -H 'Content-type:application/json'
+				note: source=DB
+	3) Return the length of following chromosomes in human and mouse: 2, 7, X. Which are the longest?
+		THere is no POST in the API, so we have to do them one by one. 
+		you can do it manualy via GET info/assembly/:species/:region_name
+		OR give information about all chromosomes & extra things --> filter out what you need via grep. GET info/assembly/:species
+
