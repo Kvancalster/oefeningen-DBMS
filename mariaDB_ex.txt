@@ -132,4 +132,22 @@ exon.exon_id=exon_transcript.exon_id JOIN transcript ON exon_transcript.transcri
 	3.d)How many exons does each transcript have? 
 		MariaDB [bioinf_testdb]>  SELECT gene.gene_name,transcript.transcript_id, count(*) as nrExons FROM transcript JOIN gene ON transcript.gene_id=gene.gene_id JOIN exon_transcript ON transcript.transcript_id = exon_transcript.transcript_id WHERE gene.gene_name="TP53" GROUP BY transcript.transcript_Id;
 
+Exercise slide 107 (Bioinf_testdb)
+	1) What is the name of the gene associated with transcript 260392?
+		MariaDB [bioinf_testdb]> SELECT gene_name FROM transcript JOIN gene ON transcript.gene_id=gene.gene_id WHERE transcript.transcript_Id="260392";
+	2) A mutation was found on chromosome 20, position 44002590. Which gene(s) overlap(s) with this position? Only genes with overlapping exons.
+		MariaDB [bioinf_testdb]> SELECT gene.gene_name, gene.chromosome,exon.exon_id, exon.seq_region_start, exon.seq_region_end  FROM exon JOIN exon_transcript ON exon.exon_id=exon_transcript.exon_id JOIN transcript ON exon_transcript.transcript_id=transcript.transcript_id JOIN gene ON transcript.gene_id=gene.gene_id WHERE chromosome=20 AND 44002590 BETWEEN exon.seq_region_start AND exon.seq_region_end;
+		NOTE IS IS THE SAME GENE! if you leave out the rest of the colums and do a distinct you will notice this
+		MariaDB [bioinf_testdb]> SELECT DISTINCT gene.gene_name  FROM exon JOIN exon_transcript ON exon.exon_id=exon_transcript.exon_id JOIN transcript ON exon_transcript.transcript_id=transcript.transcript_id JOIN gene ON transcript.gene_id=gene.gene_id WHERE chromosome=20 AND 44002590 BETWEEN exon.seq_region_start AND exon.seq_region_end;
+	3) Both the gene and the transcript table have a biotype column. Are there transcripts that have a different biotype than the gene? If so, what are the names of the biotypes?
+		MariaDB [bioinf_testdb]> SELECT DiSTINCT gene.biotype as geneBiotype,transcript.biotype as transcriptBiotype FROM gene JOIN transcript ON gene.gene_id=transcript.gene_id WHERE gene.biotype!=transcript.biotype;
+		NOTE: you have to do a distinct & exclude gene.gene_name and transcript.transcript_id otherwise you will have a lot of redundancy.
+	4) Which chromosome has the most genes? How many?
+		MariaDB [bioinf_testdb]> SELECT chromosome, count(*) as nrGenes FROM gene GROUP BY chromosome ORDER BY nrGenes desc LIMIT 1;
+	5) Which exon is the largest in the genome? How many base pairs are there?
+		MariaDB [bioinf_testdb]> SELECT exon_id, (seq_region_end - seq_region_start  +1) as exonLenght FROM exon ORDER BY exonLenght desc LIMIT 1;
+	6) Which transcript has the most exons and how many are there?
+		MariaDB [bioinf_testdb]> SELECT transcript_id, count(*) as nrExons from exon_transcript GROUP BY transcript_id ORDER BY nrExons desc LIMIT 1;
+
+
 
